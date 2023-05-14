@@ -25,11 +25,8 @@ def send_email(subject, emailBody, to):
 
     # Close the SMTP server
     smtp_server.quit()
-    print("Email sent successfully.")
 
 
-
-# Example usage
 #subject = "Green Wolrd"
 #body = "This is a test email sent using Python."
 #to = "beatriz.landi.coelho@gmail.com"

@@ -3,17 +3,27 @@ from sender import send_email
 
 app = Flask(__name__)
 
+#_______________________________________________________________________#
+
 @app.route("/v1/sender", methods=["POST"])
-def olaMundo():
+def emailSender():
 
   to = request.json['to']
   subject = request.json['subject']
   emailBody = request.json['body']
 
-  email =  send_email(subject, emailBody, to)
+  if(to == '' or subject == '' or emailBody == ''):
+        return responseGenerator(400,"all parameters are mandatory")
+  
 
-  return responseGenerator(200,"Email send sucecifully","send to", to, "subject",subject,"email body", emailBody)
+  send_email(subject, emailBody, to)
 
+  return responseGenerator(200,"Email send sucecifully",
+                           "send to", to, 
+                           "subject",subject,
+                           "email body", emailBody)
+
+#_______________________________________________________________________#
 
 def responseGenerator(status, message, 
                       email_reciver = False, reciver = False,
@@ -31,7 +41,7 @@ def responseGenerator(status, message,
         response[email_body] = body
 
     return jsonify(response) 
-    
+#_____________________________________________________________________________#
 if(app):
     print("server read to go")
 
