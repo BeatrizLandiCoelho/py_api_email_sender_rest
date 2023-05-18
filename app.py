@@ -1,5 +1,5 @@
-from flask import Flask, request, jsonify, make_response
-from sender import send_email
+from flask import Flask, request, jsonify 
+from controler_sender import deliver_email
 
 app = Flask(__name__)
 
@@ -16,7 +16,7 @@ def emailSender():
         return responseGenerator(400,"all parameters are mandatory")
   
 
-  send_email(subject, emailBody, to)
+  deliver_email(subject, emailBody, to)
 
   return responseGenerator(200,"Email send sucecifully",
                            "send to", to, 
@@ -42,7 +42,7 @@ def responseGenerator(status, message,
 
     return jsonify(response) 
 #_____________________________________________________________________________#
-if(app):
-    print("server read to go")
 
-app.run(debug=True)
+if __name__ == "__main__":
+    print("Server ready to go")
+    app.run(debug=True)
